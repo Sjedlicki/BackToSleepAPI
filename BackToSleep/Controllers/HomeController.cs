@@ -15,19 +15,21 @@ namespace BackToSleep.Controllers
             return RedirectToAction("GetLocation");
         }
 
-
         public ActionResult GetLocation()
-        {            
-            string city = "Warren";
-            string state = "Michigan";
-            ViewBag.Location = GetData(GPlacesDAL.GetLatitude($"{city}+{state}"), GPlacesDAL.GetLongitude($"{city}+{state}"));
+        {
+            int zipCode = 48309;
+            string lat = GPlacesDAL.GetLatitude(zipCode);
+            string lng = GPlacesDAL.GetLongitude(zipCode);
+
+            ViewBag.Business = GPlacesDAL.GetBusiness(lat, lng);
+
+            ViewBag.Names = GPlacesDAL.GetName(ViewBag.Business);
+
+            ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
+
+            ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
+
             return View();
         }
-
-        public static string GetData(string lat, string lng)
-        {
-            return GPlacesDAL.GetPlace(lat, lng);
-        }
-
     }
 }
