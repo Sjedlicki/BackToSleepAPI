@@ -4,46 +4,49 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BackToSleepDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Research">
+      <Schema Namespace="SleeperDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SleepDB">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Yelp Keyword" Type="nchar" MaxLength="10" />
-          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="YelpKey" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SleepHours" Type="int" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="BackToSleepDbModelStoreContainer">
-          <EntitySet Name="Research" EntityType="Self.Research" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="SleeperDbModelStoreContainer">
+          <EntitySet Name="SleepDB" EntityType="Self.SleepDB" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BackToSleepDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Research">
+      <Schema Namespace="SleeperDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SleepDB">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Yelp_Keyword" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="YelpKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SleepHours" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="BackToSleepDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Researches" EntityType="Self.Research" />
+        <EntityContainer Name="SleeperDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SleepDBs" EntityType="Self.SleepDB" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BackToSleepDbModelStoreContainer" CdmEntityContainer="BackToSleepDbEntities">
-          <EntitySetMapping Name="Researches">
-            <EntityTypeMapping TypeName="BackToSleepDbModel.Research">
-              <MappingFragment StoreEntitySet="Research">
+        <EntityContainerMapping StorageEntityContainer="SleeperDbModelStoreContainer" CdmEntityContainer="SleeperDbContext">
+          <EntitySetMapping Name="SleepDBs">
+            <EntityTypeMapping TypeName="SleeperDbModel.SleepDB">
+              <MappingFragment StoreEntitySet="SleepDB">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Yelp_Keyword" ColumnName="Yelp Keyword" />
+                <ScalarProperty Name="YelpKey" ColumnName="YelpKey" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SleepHours" ColumnName="SleepHours" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

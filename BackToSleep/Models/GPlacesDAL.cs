@@ -51,9 +51,9 @@ namespace BackToSleep.Models
             return LNG;
         }
 
-        public static List<string> GetBusiness(string lat, string lng)
+        public static List<string> GetBusiness(string lat, string lng, string YelpKeyword)
         {
-            string url = $"https://api.yelp.com/v3/businesses/search?term=hotel&radius=8000&latitude={lat}&longitude={lng}&sort_by=rating";
+            string url = $"https://api.yelp.com/v3/businesses/search?term={YelpKeyword}&radius=8000&latitude={lat}&longitude={lng}&sort_by=rating";
 
             HttpWebRequest webRequest = WebRequest.CreateHttp(url);
 
@@ -79,7 +79,6 @@ namespace BackToSleep.Models
         public static List<string> GetName(List<string> ids)
         {
             List<string> names = new List<string>();
-            //string url = $"https://api.yelp.com/v3/businesses/search?term=hotel&radius=5000&latitude={lat}&longitude={lng}";
             foreach (string id in ids)
             {
                 string url = $"https://api.yelp.com/v3/businesses/{id}";
@@ -106,7 +105,6 @@ namespace BackToSleep.Models
         public static List<string> GetImage(List<string> ids)
         {
             List<string> images = new List<string>();
-            //string url = $"https://api.yelp.com/v3/businesses/search?term=hotel&radius=5000&latitude={lat}&longitude={lng}";
             foreach (string id in ids)
             {
                 string url = $"https://api.yelp.com/v3/businesses/{id}";
@@ -133,7 +131,6 @@ namespace BackToSleep.Models
         public static List<string> GetLink(List<string> ids)
         {
             List<string> links = new List<string>();
-            //string url = $"https://api.yelp.com/v3/businesses/search?term=hotel&radius=5000&latitude={lat}&longitude={lng}";
             foreach (string id in ids)
             {
                 string url = $"https://api.yelp.com/v3/businesses/{id}";
