@@ -3,15 +3,15 @@
 }
 
 <div class="jumbotron">
+
     <h1>Back2Sleep</h1>
     <p class="lead">Welcome to the Back2Sleep application where we look out for your sleep health by taking in a little user input and offering helpful suggestions to keep you healthy and performing at your best.</p>
+
     <form action="~/Home/GetLocation"><input name="ZipCode" type="text" placeholder="Please enter your zip code" class="form-control" required pattern="[0-9]{5}" />
+    <input name="Hours" type="text" placeholder="Enter number of hours slept" class="form-control" required pattern="[0-9]{1,2}"/>
     <input type="submit"/>
     </form>
-    <form>
-    <input name="SleepHours" type="text" placeholder="Enter number of hours slept" class="form-control" required pattern="[0-9]{2}"/>
-    <input type="submit"/>
-    </form>
+
 </div>
 
 <div class="row">
