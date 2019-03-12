@@ -68,11 +68,9 @@ namespace BackToSleep.Controllers
             }
         }
 
-        public ActionResult GetLocation(int ZipCode)
+        public ActionResult GetLocation(int ZipCode, int Hours)
         {
-            int hours = 3;
-
-            string YelpKey = SleepData(hours);
+            string YelpKey = SleepData(Hours);
 
             string lat = GPlacesDAL.GetLatitude(ZipCode);
             string lng = GPlacesDAL.GetLongitude(ZipCode);
