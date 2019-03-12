@@ -53,7 +53,7 @@ namespace BackToSleep.Models
 
         public static List<string> GetBusiness(string lat, string lng)
         {
-            string url = $"https://api.yelp.com/v3/businesses/search?term=hotel&radius=40000&latitude={lat}&longitude={lng}&sort_by=rating";
+            string url = $"https://api.yelp.com/v3/businesses/search?term=hotel&radius=8000&latitude={lat}&longitude={lng}&sort_by=rating";
 
             HttpWebRequest webRequest = WebRequest.CreateHttp(url);
 
