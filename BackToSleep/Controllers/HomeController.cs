@@ -12,14 +12,14 @@ namespace BackToSleep.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("GetLocation");
-        }
+            return View();
+        }        
 
-        public ActionResult GetLocation()
+        public ActionResult GetLocation(int ZipCode)
         {
-            int zipCode = 48309;
-            string lat = GPlacesDAL.GetLatitude(zipCode);
-            string lng = GPlacesDAL.GetLongitude(zipCode);
+
+            string lat = GPlacesDAL.GetLatitude(ZipCode);
+            string lng = GPlacesDAL.GetLongitude(ZipCode);
 
             ViewBag.Business = GPlacesDAL.GetBusiness(lat, lng);
 
@@ -30,6 +30,7 @@ namespace BackToSleep.Controllers
             ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
 
             return View();
+
         }
     }
 }
