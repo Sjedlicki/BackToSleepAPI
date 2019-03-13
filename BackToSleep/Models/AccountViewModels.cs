@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BackToSleep.models
+namespace BackToSleep.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -54,7 +54,7 @@ namespace BackToSleep.models
         public string Email { get; set; }
 
         [Required]
-        //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
@@ -71,11 +71,11 @@ namespace BackToSleep.models
 
         [Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
@@ -90,11 +90,11 @@ namespace BackToSleep.models
 
         [Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
