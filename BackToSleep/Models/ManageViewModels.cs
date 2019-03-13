@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace BackToSleep.models
+namespace BackToSleep.Models
 {
     public class IndexViewModel
     {

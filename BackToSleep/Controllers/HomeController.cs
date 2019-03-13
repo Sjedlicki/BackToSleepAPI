@@ -84,7 +84,6 @@ namespace BackToSleep.Controllers
             ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
 
             return View();
-
         }
     }
 }
