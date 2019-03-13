@@ -13,10 +13,10 @@ namespace BackToSleep.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BackToSleepDbEntities : DbContext
+    public partial class SleeperDbContext : DbContext
     {
-        public BackToSleepDbEntities()
-            : base("name=BackToSleepDbEntities")
+        public SleeperDbContext()
+            : base("name=SleeperDbContext")
         {
         }
     
@@ -25,6 +25,6 @@ namespace BackToSleep.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Research> Researches { get; set; }
+        public virtual DbSet<SleepDB> SleepDBs { get; set; }
     }
 }

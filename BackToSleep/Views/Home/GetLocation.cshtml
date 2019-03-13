@@ -1,11 +1,13 @@
-﻿@{
+@{
     ViewBag.Title = "GetLocation";
 }
 <h2>GetLocation</h2>
+
 @foreach (var item in ViewBag.Images)
 {
     <img style="width: 200px; height:auto;" src="@item" />
 }
+
 @for (int i = 0; i < ViewBag.Links.Count; i++)
 {
     <a href="@ViewBag.Links[i].">@ViewBag.Names[i]</a>
