@@ -386,17 +386,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\GetData.cshtml" />
     <Content Include="Views\Home\GetLocation.cshtml" />
-    <Content Include="Views\DB\Create.cshtml" />
-    <Content Include="Views\DB\Delete.cshtml" />
-    <Content Include="Views\DB\Details.cshtml" />
-    <Content Include="Views\DB\Edit.cshtml" />
-    <Content Include="Views\DB\Index.cshtml" />
     <Content Include="Views\Home\SleepData.cshtml" />
-    <Content Include="Views\Researches\Create.cshtml" />
-    <Content Include="Views\Researches\Delete.cshtml" />
-    <Content Include="Views\Researches\Details.cshtml" />
-    <Content Include="Views\Researches\Edit.cshtml" />
-    <Content Include="Views\Researches\Index.cshtml" />
     <Content Include="Views\SleepDBs\Create.cshtml" />
     <Content Include="Views\SleepDBs\Delete.cshtml" />
     <Content Include="Views\SleepDBs\Details.cshtml" />
