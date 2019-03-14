@@ -176,13 +176,20 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SleepDBsController.cs" />
+    <Compile Include="Controllers\UserSleepDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>SleepDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GPlacesDAL.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SleepData.cs">
+      <DependentUpon>SleepDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SleepDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -339,6 +346,7 @@
     <Content Include="Models\SleepDB.edmx.diagram">
       <DependentUpon>SleepDB.edmx</DependentUpon>
     </Content>
+    <Content Include="obj\Debug\BackToSleep.csproj.CopyComplete" />
     <None Include="Properties\PublishProfiles\BackToSleep - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\JediZone - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -392,6 +400,11 @@
     <Content Include="Views\SleepDBs\Details.cshtml" />
     <Content Include="Views\SleepDBs\Edit.cshtml" />
     <Content Include="Views\SleepDBs\Index.cshtml" />
+    <Content Include="Views\UserSleepData\Create.cshtml" />
+    <Content Include="Views\UserSleepData\Delete.cshtml" />
+    <Content Include="Views\UserSleepData\Details.cshtml" />
+    <Content Include="Views\UserSleepData\Edit.cshtml" />
+    <Content Include="Views\UserSleepData\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

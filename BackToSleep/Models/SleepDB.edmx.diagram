@@ -6,6 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="806da53b44a14000b6327e28ca56d885" Name="Diagram1">
         <EntityTypeShape EntityType="SleeperDbModel.SleepDB" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SleeperDbModel.AspNetUser" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SleeperDbModel.SleepData" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="SleeperDbModel.FK_SleepData_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

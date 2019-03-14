@@ -21,7 +21,7 @@ namespace BackToSleep.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("IdentityConnectionString", throwIfV1Schema: false)
         {
         }
 
