@@ -50,8 +50,10 @@ namespace BackToSleep.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ZipCode,YelpKey,SleepHours,Day,Date,UserID")] SleepData sleepData)
+        public ActionResult Create([Bind(Include = "ID,SleepHours,Day,Date")] SleepData sleepData)
         {
+            sleepData.UserID = User.Identity.GetUserId();
+
             if (ModelState.IsValid)
             {
                 db.SleepDatas.Add(sleepData);
@@ -84,7 +86,7 @@ namespace BackToSleep.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ZipCode,YelpKey,SleepHours,Day,Date,UserID")] SleepData sleepData)
+        public ActionResult Edit([Bind(Include = "ID,SleepHours,Day,Date,UserID")] SleepData sleepData)
         {
             if (ModelState.IsValid)
             {
