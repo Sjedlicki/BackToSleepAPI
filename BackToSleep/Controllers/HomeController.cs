@@ -45,10 +45,8 @@ namespace BackToSleep.Controllers
             return totalHours;
         }
 
-        public string SleepData(int hr)
+        public string SleepDaily(int hr)
         {
-            //int hr = GetHours();
-
             List<SleepDB> sleep = db.SleepDBs.ToList();
 
             if (hr <= 2)
@@ -97,10 +95,61 @@ namespace BackToSleep.Controllers
             }
         }
 
+        public string SleepWeekly()
+        {
+            int hr = GetHours();
+
+            List<SleepDB> sleep = db.SleepDBs.ToList();
+
+            if (hr <= 2)
+            {
+                string YelpKey = (from yelp in sleep
+                                  where yelp.SleepHours == 2
+                                  select yelp.YelpKey).First();
+
+                return YelpKey;
+            }
+            else if (hr > 2 && hr < 6)
+            {
+                string YelpKey = (from yelp in sleep
+                                  where yelp.SleepHours == 4
+                                  select yelp.YelpKey).First();
+
+                return YelpKey;
+            }
+            else if (hr >= 6 && hr < 8)
+            {
+                string YelpKey = (from yelp in sleep
+                                  where yelp.SleepHours == 6
+                                  select yelp.YelpKey).First();
+
+                return YelpKey;
+            }
+            else if (hr >= 8 && hr < 10)
+            {
+                string YelpKey = (from yelp in sleep
+                                  where yelp.SleepHours == 8
+                                  select yelp.YelpKey).First();
+
+                return YelpKey;
+            }
+            else if (hr >= 10)
+            {
+                string YelpKey = (from yelp in sleep
+                                  where yelp.SleepHours == 10
+                                  select yelp.YelpKey).First();
+
+                return YelpKey;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public ActionResult GetLocation(int ZipCode)
         {
-            string YelpKey = SleepData(8);
-            //int ZipCode = 48306;
+            string YelpKey = SleepWeekly();
 
             string lat = GPlacesDAL.GetLatitude(ZipCode);
             string lng = GPlacesDAL.GetLongitude(ZipCode);
@@ -123,7 +172,7 @@ namespace BackToSleep.Controllers
 
         public ActionResult DailySleep(int ZipCode, int SleepHours)
         {
-            string YelpKey = SleepData(SleepHours);
+            string YelpKey = SleepDaily(SleepHours);
 
             string lat = GPlacesDAL.GetLatitude(ZipCode);
             string lng = GPlacesDAL.GetLongitude(ZipCode);
