@@ -15,8 +15,6 @@ namespace BackToSleep.Models
     public partial class SleepData
     {
         public int ID { get; set; }
-        public string ZipCode { get; set; }
-        public string YelpKey { get; set; }
         public string SleepHours { get; set; }
         public string Day { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
