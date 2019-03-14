@@ -405,6 +405,7 @@
     <Content Include="Views\UserSleepData\Details.cshtml" />
     <Content Include="Views\UserSleepData\Edit.cshtml" />
     <Content Include="Views\UserSleepData\Index.cshtml" />
+    <Content Include="Views\Home\DailySleepPatterns.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

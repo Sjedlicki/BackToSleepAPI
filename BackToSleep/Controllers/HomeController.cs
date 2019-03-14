@@ -45,9 +45,9 @@ namespace BackToSleep.Controllers
             return totalHours;
         }
 
-        public string SleepData()
+        public string SleepData(int hr)
         {
-            int hr = GetHours();
+            //int hr = GetHours();
 
             List<SleepDB> sleep = db.SleepDBs.ToList();
 
@@ -99,7 +99,7 @@ namespace BackToSleep.Controllers
 
         public ActionResult GetLocation(int ZipCode)
         {
-            string YelpKey = SleepData();
+            string YelpKey = SleepData(8);
             //int ZipCode = 48306;
 
             string lat = GPlacesDAL.GetLatitude(ZipCode);
@@ -114,6 +114,29 @@ namespace BackToSleep.Controllers
             ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
 
             return View();
+        }
+
+        public ActionResult DailySleepPatterns()
+        {
+            return View();
+        }
+
+        public ActionResult DailySleep(int ZipCode, int SleepHours)
+        {
+            string YelpKey = SleepData(SleepHours);
+
+            string lat = GPlacesDAL.GetLatitude(ZipCode);
+            string lng = GPlacesDAL.GetLongitude(ZipCode);
+
+            ViewBag.Business = GPlacesDAL.GetBusiness(lat, lng, YelpKey);
+
+            ViewBag.Names = GPlacesDAL.GetName(ViewBag.Business);
+
+            ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
+
+            ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
+
+            return View("GetLocation");
         }
     }
 }
