@@ -26,5 +26,7 @@ namespace BackToSleep.Models
         }
     
         public virtual DbSet<SleepDB> SleepDBs { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<SleepData> SleepDatas { get; set; }
     }
 }

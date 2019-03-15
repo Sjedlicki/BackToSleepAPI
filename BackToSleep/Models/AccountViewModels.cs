@@ -6,7 +6,7 @@ namespace BackToSleep.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Username")]
         public string Email { get; set; }
     }
 
@@ -42,15 +42,15 @@ namespace BackToSleep.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Username")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
+        [Display(Name = "Username")]
+        //[EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -65,8 +65,8 @@ namespace BackToSleep.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        //[EmailAddress]
+        [Display(Name = "Username")]
         public string Email { get; set; }
 
         [Required]
@@ -84,8 +84,8 @@ namespace BackToSleep.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        //[EmailAddress]
+        [Display(Name = "Username")]
         public string Email { get; set; }
 
         [Required]
@@ -105,8 +105,8 @@ namespace BackToSleep.Models
     public class ForgotPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        //[EmailAddress]
+        [Display(Name = "Username")]
         public string Email { get; set; }
     }
 }
