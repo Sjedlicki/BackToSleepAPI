@@ -19,6 +19,7 @@ namespace BackToSleep.Models
         public string Day { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string UserID { get; set; }
+        public int SleepQuality { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
     }

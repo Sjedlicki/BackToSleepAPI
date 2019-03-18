@@ -67,7 +67,7 @@ namespace BackToSleep.Models
             var Json = JObject.Parse(content);
 
             List<string> businesses = new List<string>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 string business = Json["businesses"][i]["id"].ToString();
                 businesses.Add(business);

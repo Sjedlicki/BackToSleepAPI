@@ -26,11 +26,12 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SleepHours" Type="nvarchar" MaxLength="2" Nullable="false" />
           <Property Name="Day" Type="nvarchar" MaxLength="9" />
           <Property Name="Date" Type="date" />
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SleepQuality" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SleepDB">
           <Key>
@@ -110,8 +111,9 @@
           <Property Name="SleepHours" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="Day" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="AspNetUser" Relationship="SleeperDbModel.FK_SleepData_AspNetUsers" FromRole="SleepData" ToRole="AspNetUser" />
+          <Property Name="SleepQuality" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_SleepData_AspNetUsers">
           <End Type="SleeperDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -162,6 +164,7 @@
           <EntitySetMapping Name="SleepDatas">
             <EntityTypeMapping TypeName="SleeperDbModel.SleepData">
               <MappingFragment StoreEntitySet="SleepData">
+                <ScalarProperty Name="SleepQuality" ColumnName="SleepQuality" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Day" ColumnName="Day" />
