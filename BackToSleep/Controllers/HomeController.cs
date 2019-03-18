@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,7 +19,7 @@ namespace BackToSleep.Controllers
             return View();
         }
 
-        public List<string> UserSleepWeek()
+        public List<string> UserSleepWeekHours()
         {
             string userID = User.Identity.GetUserId();
             List<SleepData> userSleep = db.SleepDatas.Where(s => s.UserID == userID).ToList();
@@ -31,7 +32,7 @@ namespace BackToSleep.Controllers
 
         public int GetHours()
         {
-           List<string> hours = UserSleepWeek();
+           List<string> hours = UserSleepWeekHours();
 
             List<int> weekHours = new List<int>();
 
@@ -40,9 +41,88 @@ namespace BackToSleep.Controllers
                 weekHours.Add(int.Parse(hr));
             }
 
-            int totalHours = weekHours.Sum();
+            double totalHours = weekHours.Average();
 
-            return totalHours;
+            int rounded = (int)Math.Round(totalHours, MidpointRounding.AwayFromZero);
+
+            return rounded;
+        }
+
+        public List<int> UserSleepWeekQuality()
+        {
+            string userID = User.Identity.GetUserId();
+            List<SleepData> userSleep = db.SleepDatas.Where(s => s.UserID == userID).ToList();
+
+            List<int> quality = (from sq in userSleep
+                                  select sq.SleepQuality).ToList();
+
+            return quality;
+        }
+
+        public double GetQuality()
+        {
+            List<int> quality = UserSleepWeekQuality();
+
+            List<int> weekQuality = new List<int>();
+
+            foreach(int q in quality)
+            {
+                weekQuality.Add(q);
+            }
+
+            double averageQuality = weekQuality.Average();
+
+            return averageQuality;
+        }
+
+        public int BasePoints()
+        {
+            int basepoints = GetHours();
+
+            if (basepoints >= 8)
+            {
+                return 100;
+            }
+            else if (basepoints < 8 && basepoints >= 6)
+            {
+                return  80;
+            }
+            else if (basepoints < 6 && basepoints >= 4)
+            {
+                return 60;
+            }
+            else if (basepoints < 4 && basepoints >= 2)
+            {
+                return 40;
+            }
+            else if (basepoints < 2 && basepoints >= 0)
+            {
+                return 20;
+            }
+
+            return 0;
+        }
+
+        public double AdjustedDailyScore(int quality)
+        {
+            int bp = BasePoints();
+            double q = quality * 0.1;
+
+            double adjustedScore = bp * q;
+
+            return adjustedScore;
+        }
+
+        public double AdjustedWeeklyScore()
+        {
+            int bp = BasePoints();
+            double quality = GetQuality();
+
+            double q = quality * 0.1;
+
+            double adjustedScore = bp * q;
+
+            return adjustedScore;
         }
 
         public string SleepDaily(int hr)
@@ -97,7 +177,7 @@ namespace BackToSleep.Controllers
 
         public string SleepWeekly()
         {
-            int hr = GetHours();
+            double hr = GetHours();
 
             List<SleepDB> sleep = db.SleepDBs.ToList();
 
@@ -147,6 +227,7 @@ namespace BackToSleep.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult GetLocation(int ZipCode)
         {
             string YelpKey = SleepWeekly();
