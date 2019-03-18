@@ -33,7 +33,15 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Day, new { htmlAttributes = new { @class = "form-control" } })
+            <select class="form-control" id="Day" name="Day">
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+                <option>Sunday</option>
+            </select>
             @Html.ValidationMessageFor(model => model.Day, "", new { @class = "text-danger" })
         </div>
     </div>
