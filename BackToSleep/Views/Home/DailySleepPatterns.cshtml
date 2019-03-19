@@ -2,6 +2,7 @@
         <form action="~/Home/DailySleep">
             <input name="SleepHours" type="text" placeholder="Enter number of hours slept" class="form-control" required pattern="[0-9]{1,2}" />
             <input name="ZipCode" type="text" placeholder="Please enter your zip code" class="form-control" required pattern="[0-9]{5}" />
+            <input name="SleepQuality" type="number" placeholder="Please enter sleep quality 1-10" class="form-control" required min="1" max="10"/>
             <input type="submit" value="Get Recommendations" />
         </form>
  

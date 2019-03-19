@@ -17,15 +17,30 @@
     <div class="form-group">
         @Html.LabelFor(model => model.SleepHours, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SleepHours, new { htmlAttributes = new { @class = "form-control", @required = true } })
+            <select class="form-control" id="SleepHours" name="Sleep Hours">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+            </select>
+            @*@Html.EditorFor(model => model.SleepHours, new { htmlAttributes = new { @class = "form-control", @required = true } })*@
             @Html.ValidationMessageFor(model => model.SleepHours, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.SleepQuality, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.SleepQuality, new { htmlAttributes = new { @class = "form-control", @required = true } })
+        <div class="col-md-10" >
+            @Html.EditorFor(model => model.SleepQuality, new { htmlAttributes = new { @class = "form-control", @required = true, @min = "1", @max = "10" } } )
             @Html.ValidationMessageFor(model => model.SleepQuality, "", new { @class = "text-danger" })
         </div>
     </div>
