@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Add New Sleep Data</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -17,7 +17,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.SleepHours, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SleepHours, new { htmlAttributes = new { @class = "form-control", @required = true } })
+            @Html.TextBoxFor(model => model.SleepHours, new { htmlAttributes = new { @class = "form-control", @required = true } })
             @Html.ValidationMessageFor(model => model.SleepHours, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -49,8 +49,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-
-            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "datefield", @type = "date" } })
             @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
         </div>
     </div>
