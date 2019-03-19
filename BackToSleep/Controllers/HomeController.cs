@@ -97,14 +97,6 @@ namespace BackToSleep.Controllers
             return 0;
         }
 
-        //public double AdjustedScore(int Quality)
-        //{
-        //    double q = Quality * 0.1;
-
-        //    double adjustedScore = bp * q;
-
-        //    return adjustedScore;
-        //}
 
         public double AdjustedScore(int basepoints, double quality)
         {
