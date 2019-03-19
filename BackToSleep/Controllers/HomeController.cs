@@ -30,10 +30,8 @@ namespace BackToSleep.Controllers
             return hours;
         }
 
-        public int GetHours()
+        public int GetHours(List<string> hours)
         {
-           List<string> hours = UserSleepWeekHours();
-
             List<int> weekHours = new List<int>();
 
             foreach (string hr in hours)
@@ -59,10 +57,8 @@ namespace BackToSleep.Controllers
             return quality;
         }
 
-        public double GetQuality()
+        public double GetQuality(List<int> quality)
         {
-            List<int> quality = UserSleepWeekQuality();
-
             List<int> weekQuality = new List<int>();
 
             foreach(int q in quality)
@@ -75,10 +71,8 @@ namespace BackToSleep.Controllers
             return averageQuality;
         }
 
-        public int BasePoints()
+        public int BasePoints(int basepoints)
         {
-            int basepoints = GetHours();
-
             if (basepoints >= 8)
             {
                 return 100;
@@ -103,33 +97,29 @@ namespace BackToSleep.Controllers
             return 0;
         }
 
-        public double AdjustedDailyScore(int quality)
+        //public double AdjustedScore(int Quality)
+        //{
+        //    double q = Quality * 0.1;
+
+        //    double adjustedScore = bp * q;
+
+        //    return adjustedScore;
+        //}
+
+        public double AdjustedScore(int basepoints, double quality)
         {
-            int bp = BasePoints();
             double q = quality * 0.1;
 
-            double adjustedScore = bp * q;
+            double adjustedScore = basepoints * q;
 
             return adjustedScore;
         }
 
-        public double AdjustedWeeklyScore()
-        {
-            int bp = BasePoints();
-            double quality = GetQuality();
-
-            double q = quality * 0.1;
-
-            double adjustedScore = bp * q;
-
-            return adjustedScore;
-        }
-
-        public string SleepDaily(int hr)
+        public string SleepDaily(double sleepScore)
         {
             List<SleepDB> sleep = db.SleepDBs.ToList();
 
-            if (hr <= 2)
+            if (sleepScore < 20)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 2
@@ -137,7 +127,7 @@ namespace BackToSleep.Controllers
 
                 return YelpKey;
             }
-            else if (hr > 2 && hr < 6)
+            else if (sleepScore >= 20 && sleepScore < 40)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 4
@@ -145,7 +135,7 @@ namespace BackToSleep.Controllers
 
                 return YelpKey;
             }
-            else if (hr >= 6 && hr < 8 )
+            else if (sleepScore >= 40 && sleepScore < 60)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 6
@@ -153,7 +143,7 @@ namespace BackToSleep.Controllers
 
                 return YelpKey;
             }
-            else if (hr >= 8 && hr < 10)
+            else if (sleepScore >= 60 && sleepScore < 80)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 8
@@ -161,7 +151,7 @@ namespace BackToSleep.Controllers
 
                 return YelpKey;
             }
-            else if (hr >= 10)
+            else if (sleepScore >= 80)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 10
@@ -175,13 +165,27 @@ namespace BackToSleep.Controllers
             }
         }
 
+        public double SleepWeeklyScore()
+        {
+            List<string> hours = UserSleepWeekHours();
+            int avgSleepHours = GetHours(hours);
+            int basepoints = BasePoints(avgSleepHours);
+
+            List<int> avgSleepQuality = UserSleepWeekQuality();
+            double quality = GetQuality(avgSleepQuality);
+
+            double adj = AdjustedScore(basepoints, quality);
+
+            return adj;             
+        }
+
         public string SleepWeekly()
         {
-            double hr = GetHours();
+            double hr = SleepWeeklyScore();
 
             List<SleepDB> sleep = db.SleepDBs.ToList();
 
-            if (hr <= 2)
+            if (hr < 20)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 2
@@ -189,7 +193,7 @@ namespace BackToSleep.Controllers
 
                 return YelpKey;
             }
-            else if (hr > 2 && hr < 6)
+            else if (hr >= 20  && hr < 40)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 4
@@ -197,7 +201,7 @@ namespace BackToSleep.Controllers
 
                 return YelpKey;
             }
-            else if (hr >= 6 && hr < 8)
+            else if (hr >= 40 && hr < 60)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 6
@@ -205,7 +209,7 @@ namespace BackToSleep.Controllers
 
                 return YelpKey;
             }
-            else if (hr >= 8 && hr < 10)
+            else if (hr >= 60 && hr < 80)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 8
@@ -213,7 +217,7 @@ namespace BackToSleep.Controllers
 
                 return YelpKey;
             }
-            else if (hr >= 10)
+            else if (hr >= 80)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 10
@@ -251,9 +255,12 @@ namespace BackToSleep.Controllers
             return View();
         }
 
-        public ActionResult DailySleep(int ZipCode, int SleepHours)
+        public ActionResult DailySleep(int ZipCode, int SleepHours, int SleepQuality)
         {
-            string YelpKey = SleepDaily(SleepHours);
+            int baseScore = BasePoints(SleepHours);
+            double adjusted = AdjustedScore(baseScore, SleepQuality);
+
+            string YelpKey = SleepDaily(adjusted);
 
             string lat = GPlacesDAL.GetLatitude(ZipCode);
             string lng = GPlacesDAL.GetLongitude(ZipCode);
