@@ -1,5 +1,6 @@
 ﻿using BackToSleep.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,6 +20,62 @@ namespace BackToSleep.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult GetLocation(int ZipCode)
+        {
+            double sleepScore = SleepWeeklyScore();
+            ViewBag.Data = SleepRecommendation(sleepScore);
+
+            string YelpKey = ViewBag.Data[0];
+
+            string lat = GPlacesDAL.GetLatitude(ZipCode);
+            string lng = GPlacesDAL.GetLongitude(ZipCode);
+
+            ViewBag.Business = GPlacesDAL.GetBusiness(lat, lng, YelpKey);
+
+            ViewBag.Names = GPlacesDAL.GetName(ViewBag.Business);
+
+            ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
+
+            ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
+
+            ViewBag.Score = sleepScore;
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult DailySleepPatterns()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult DailySleep(int ZipCode, int SleepHours, int SleepQuality)
+        {
+            int baseScore = BasePoints(SleepHours);
+            double adjusted = AdjustedScore(baseScore, SleepQuality);
+
+            ViewBag.Data = SleepRecommendation(adjusted);
+
+            string YelpKey = ViewBag.Data[0];
+
+            string lat = GPlacesDAL.GetLatitude(ZipCode);
+            string lng = GPlacesDAL.GetLongitude(ZipCode);
+
+            ViewBag.Business = GPlacesDAL.GetBusiness(lat, lng, YelpKey);
+
+            ViewBag.Names = GPlacesDAL.GetName(ViewBag.Business);
+
+            ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
+
+            ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
+
+            ViewBag.Score = adjusted;
+
+            return View("GetLocation");
+        }
+
         public List<string> UserSleepWeekHours()
         {
             string userID = User.Identity.GetUserId();
@@ -28,6 +85,17 @@ namespace BackToSleep.Controllers
                         select hour.SleepHours).ToList();
 
             return hours;
+        }
+
+        public List<int> UserSleepWeekQuality()
+        {
+            string userID = User.Identity.GetUserId();
+            List<SleepData> userSleep = db.SleepDatas.Where(s => s.UserID == userID).ToList();
+
+            List<int> quality = (from sq in userSleep
+                                 select sq.SleepQuality).ToList();
+
+            return quality;
         }
 
         public int GetHours(List<string> hours)
@@ -44,17 +112,6 @@ namespace BackToSleep.Controllers
             int rounded = (int)Math.Round(totalHours, MidpointRounding.AwayFromZero);
 
             return rounded;
-        }
-
-        public List<int> UserSleepWeekQuality()
-        {
-            string userID = User.Identity.GetUserId();
-            List<SleepData> userSleep = db.SleepDatas.Where(s => s.UserID == userID).ToList();
-
-            List<int> quality = (from sq in userSleep
-                                  select sq.SleepQuality).ToList();
-
-            return quality;
         }
 
         public double GetQuality(List<int> quality)
@@ -106,56 +163,6 @@ namespace BackToSleep.Controllers
             return adjustedScore;
         }
 
-        public string SleepDaily(double sleepScore)
-        {
-            List<SleepDB> sleep = db.SleepDBs.ToList();
-
-            if (sleepScore < 20)
-            {
-                string YelpKey = (from yelp in sleep
-                                  where yelp.SleepHours == 2
-                                  select yelp.YelpKey).First();
-
-                return YelpKey;
-            }
-            else if (sleepScore >= 20 && sleepScore < 40)
-            {
-                string YelpKey = (from yelp in sleep
-                                  where yelp.SleepHours == 4
-                                  select yelp.YelpKey).First();
-
-                return YelpKey;
-            }
-            else if (sleepScore >= 40 && sleepScore < 60)
-            {
-                string YelpKey = (from yelp in sleep
-                                  where yelp.SleepHours == 6
-                                  select yelp.YelpKey).First();
-
-                return YelpKey;
-            }
-            else if (sleepScore >= 60 && sleepScore < 80)
-            {
-                string YelpKey = (from yelp in sleep
-                                  where yelp.SleepHours == 8
-                                  select yelp.YelpKey).First();
-
-                return YelpKey;
-            }
-            else if (sleepScore >= 80)
-            {
-                string YelpKey = (from yelp in sleep
-                                  where yelp.SleepHours == 10
-                                  select yelp.YelpKey).First();
-
-                return YelpKey;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         public int SleepWeeklyScore()
         {
             List<string> hours = UserSleepWeekHours();
@@ -165,111 +172,86 @@ namespace BackToSleep.Controllers
             List<int> avgSleepQuality = UserSleepWeekQuality();
             double quality = GetQuality(avgSleepQuality);
 
-            double adj = AdjustedScore(basepoints, quality);
+            double adjusted = AdjustedScore(basepoints, quality);
 
-            int rounded = (int)Math.Round(adj, MidpointRounding.AwayFromZero);
+            int rounded = (int)Math.Round(adjusted, MidpointRounding.AwayFromZero);
 
-            return rounded;             
+            return rounded;
         }
 
-        public string SleepWeekly(double hr)
+        public List<string> SleepRecommendation(double sleepScore)
         {
             List<SleepDB> sleep = db.SleepDBs.ToList();
 
-            if (hr < 20)
+            if (sleepScore < 20)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 2
                                   select yelp.YelpKey).First();
+                string description = (from yelp in sleep
+                                      where yelp.SleepHours == 2
+                                      select yelp.Description).First();
 
-                return YelpKey;
+                List<string> data = new List<string>() { YelpKey, description };
+
+                return data;
             }
-            else if (hr >= 20  && hr < 40)
+            else if (sleepScore >= 20 && sleepScore < 40)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 4
                                   select yelp.YelpKey).First();
+                string description = (from yelp in sleep
+                                      where yelp.SleepHours == 4
+                                      select yelp.Description).First();
 
-                return YelpKey;
+                List<string> data = new List<string>() { YelpKey, description };
+
+                return data;
             }
-            else if (hr >= 40 && hr < 60)
+            else if (sleepScore >= 40 && sleepScore < 60)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 6
                                   select yelp.YelpKey).First();
+                string description = (from yelp in sleep
+                                      where yelp.SleepHours == 6
+                                      select yelp.Description).First();
 
-                return YelpKey;
+                List<string> data = new List<string>() { YelpKey, description };
+
+                return data;
             }
-            else if (hr >= 60 && hr < 80)
+            else if (sleepScore >= 60 && sleepScore < 80)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 8
                                   select yelp.YelpKey).First();
+                string description = (from yelp in sleep
+                                      where yelp.SleepHours == 8
+                                      select yelp.Description).First();
 
-                return YelpKey;
+                List<string> data = new List<string>() { YelpKey, description };
+
+                return data;
             }
-            else if (hr >= 80)
+            else if (sleepScore >= 80)
             {
                 string YelpKey = (from yelp in sleep
                                   where yelp.SleepHours == 10
                                   select yelp.YelpKey).First();
+                string description = (from yelp in sleep
+                                      where yelp.SleepHours == 10
+                                      select yelp.Description).First();
 
-                return YelpKey;
+                List<string> data = new List<string>() { YelpKey, description };
+
+                return data;
             }
             else
             {
                 return null;
             }
-        }
-
-        [Authorize]
-        public ActionResult GetLocation(int ZipCode)
-        {
-            double sleepScore = SleepWeeklyScore();
-            string YelpKey = SleepWeekly(sleepScore);
-
-            string lat = GPlacesDAL.GetLatitude(ZipCode);
-            string lng = GPlacesDAL.GetLongitude(ZipCode);
-
-            ViewBag.Business = GPlacesDAL.GetBusiness(lat, lng, YelpKey);
-
-            ViewBag.Names = GPlacesDAL.GetName(ViewBag.Business);
-
-            ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
-
-            ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
-
-            ViewBag.Score = sleepScore;
-
-            return View();
-        }
-
-        public ActionResult DailySleepPatterns()
-        {
-            return View();
-        }
-
-        public ActionResult DailySleep(int ZipCode, int SleepHours, int SleepQuality)
-        {
-            int baseScore = BasePoints(SleepHours);
-            double adjusted = AdjustedScore(baseScore, SleepQuality);
-
-            string YelpKey = SleepDaily(adjusted);
-
-            string lat = GPlacesDAL.GetLatitude(ZipCode);
-            string lng = GPlacesDAL.GetLongitude(ZipCode);
-
-            ViewBag.Business = GPlacesDAL.GetBusiness(lat, lng, YelpKey);
-
-            ViewBag.Names = GPlacesDAL.GetName(ViewBag.Business);
-
-            ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
-
-            ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
-
-            ViewBag.Score = adjusted;
-
-            return View("GetLocation");
         }
     }
 }
