@@ -97,15 +97,6 @@ namespace BackToSleep.Controllers
             return 0;
         }
 
-        //public double AdjustedScore(int Quality)
-        //{
-        //    double q = Quality * 0.1;
-
-        //    double adjustedScore = bp * q;
-
-        //    return adjustedScore;
-        //}
-
         public double AdjustedScore(int basepoints, double quality)
         {
             double q = quality * 0.1;
@@ -165,7 +156,7 @@ namespace BackToSleep.Controllers
             }
         }
 
-        public double SleepWeeklyScore()
+        public int SleepWeeklyScore()
         {
             List<string> hours = UserSleepWeekHours();
             int avgSleepHours = GetHours(hours);
@@ -176,13 +167,13 @@ namespace BackToSleep.Controllers
 
             double adj = AdjustedScore(basepoints, quality);
 
-            return adj;             
+            int rounded = (int)Math.Round(adj, MidpointRounding.AwayFromZero);
+
+            return rounded;             
         }
 
-        public string SleepWeekly()
+        public string SleepWeekly(double hr)
         {
-            double hr = SleepWeeklyScore();
-
             List<SleepDB> sleep = db.SleepDBs.ToList();
 
             if (hr < 20)
@@ -234,7 +225,8 @@ namespace BackToSleep.Controllers
         [Authorize]
         public ActionResult GetLocation(int ZipCode)
         {
-            string YelpKey = SleepWeekly();
+            double sleepScore = SleepWeeklyScore();
+            string YelpKey = SleepWeekly(sleepScore);
 
             string lat = GPlacesDAL.GetLatitude(ZipCode);
             string lng = GPlacesDAL.GetLongitude(ZipCode);
@@ -246,6 +238,8 @@ namespace BackToSleep.Controllers
             ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
 
             ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
+
+            ViewBag.Score = sleepScore;
 
             return View();
         }
@@ -272,6 +266,8 @@ namespace BackToSleep.Controllers
             ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
 
             ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
+
+            ViewBag.Score = adjusted;
 
             return View("GetLocation");
         }
