@@ -19,10 +19,12 @@
         <form action="~/Account/Login">
             <input type="submit" value="Login" />
         </form>
+
+        <p>Get your free sleep score today!</p>
+        <input type="button" value="Sleep Estimator" onclick="location.href='@Url.Action("DailySleepPatterns", "Home")'" />
     }
 
-    <p>Get your free sleep score today!</p>
-    <input type="button" value="Sleep Estimator" onclick="location.href='@Url.Action("DailySleepPatterns", "Home")'" />
+
 </div>
 
 <div class="row">

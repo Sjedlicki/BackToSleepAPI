@@ -22,11 +22,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                    <li>@Html.ActionLink("Sleep Estimator", "DailySleepPatterns", "Home")</li>
+
 
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Weekly Sleep Patterns", "Index", "UserSleepData")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Sleep Estimator", "DailySleepPatterns", "Home")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
