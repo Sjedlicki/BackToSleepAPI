@@ -64,9 +64,10 @@ div3 {
     border-radius: 10px;
     background-color: burlywood;
     text-align: center;
-    max-width: 375px;
+    max-width: 400px;
     align-content: center;
     font-size: 24px;
+    display: inline-block;
 }
 
 .jumbotron {
@@ -109,6 +110,23 @@ footer {
 div11 {
     border: 5px inset lightgray;
 
+}
+
+div4 {
+    color: white;
+    font-family: Papyrus;
+    border: 5px inset lightgray;
+    border-radius: 25px;
+    background-color: burlywood;
+}
+
+.div9 {
+    color: white;
+    font-family: Papyrus;
+    border: 5px inset lightgray;
+    border-radius: 25px;
+    background-color: burlywood;
+    
 }
 
 
