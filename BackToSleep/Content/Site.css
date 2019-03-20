@@ -48,7 +48,7 @@ h1 {
     text-align: center;
     font-family: Papyrus;
     text-shadow: 4px 4px 10px lightskyblue;
-    font-size: 200px;
+    
 }
 .p1 {
     text-align: center;
@@ -89,12 +89,11 @@ div3 {
     background-color: lightskyblue;
     border-color: deepskyblue;
     font-family: Papyrus;
-    font-size: 60px !important;
+    font-size: 24px !important;
     padding-top: 15px;
         
 }
 div2 {
-    max-width: 280px;
     background-color: lightskyblue;
     color: navy;
     border-radius: 25px;
@@ -107,7 +106,9 @@ footer {
     font-size: 24px;
 }
 
-.p12 {
-    max-height: 20px;
-    max-width: 25px;
+div11 {
+    border: 5px inset lightgray;
+
 }
+
+
