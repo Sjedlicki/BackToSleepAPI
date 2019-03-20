@@ -51,6 +51,8 @@ namespace BackToSleep.Controllers
 
         public ActionResult DailySleep(int SleepHours, int SleepQuality)
         {
+            SleepData sd = new SleepData();
+
             Session["SleepHours"] = SleepHours;
             Session["SleepQuality"] = SleepQuality;
             Session["Day"] = DateTime.Now.DayOfWeek;
