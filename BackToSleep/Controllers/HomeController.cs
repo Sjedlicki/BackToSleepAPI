@@ -56,7 +56,6 @@ namespace BackToSleep.Controllers
             Session["Day"] = DateTime.Now.DayOfWeek;
             Session["Date"] = DateTime.Now.Date;
 
-
             int baseScore = BasePoints(SleepHours);
             double adjusted = AdjustedScore(baseScore, SleepQuality);
 
@@ -156,7 +155,9 @@ namespace BackToSleep.Controllers
                 return 100;
             }
 
-            return adjustedScore;
+            int adjusted = (int)Math.Round(adjustedScore, MidpointRounding.AwayFromZero);
+
+            return adjusted;
         }
 
         public int SleepWeeklyScore()
