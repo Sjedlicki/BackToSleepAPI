@@ -10,6 +10,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <h3>Welcome @User.Identity.Name</h3>
+        <input type="button" value="My Sleep Pattern" onclick="location.href='@Url.Action("Index", "UserSleepData")'" />
     }
     else
     {
