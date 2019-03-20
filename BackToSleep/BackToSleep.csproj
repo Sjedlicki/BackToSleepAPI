@@ -290,6 +290,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Back2SleepLogo.jpg" />
+    <Content Include="Images\clouds.jpg" />
+    <Content Include="Images\clouds2.jpg" />
     <Content Include="Models\SleepDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SleepDB.edmx</DependentUpon>

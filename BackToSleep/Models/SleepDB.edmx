@@ -26,7 +26,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SleepHours" Type="nvarchar" MaxLength="2" Nullable="false" />
           <Property Name="Day" Type="nvarchar" MaxLength="9" />
           <Property Name="Date" Type="date" />
