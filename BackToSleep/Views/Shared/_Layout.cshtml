@@ -22,17 +22,18 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li>@Html.ActionLink("Daily Sleep Patterns", "DailySleepPatterns", "Home")</li>
-                    <li>@Html.ActionLink("Weekly Sleep Patterns", "Index", "UserSleepData")</li>
-                }
+                    <li>@Html.ActionLink("Sleep Estimator", "DailySleepPatterns", "Home")</li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Weekly Sleep Patterns", "Index", "UserSleepData")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div>
         @RenderBody()
         <hr />
         <footer>
