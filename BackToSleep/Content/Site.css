@@ -1,20 +1,26 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color:dodgerblue;
+    height: 100%;
+    background-image: url('../Images/clouds2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 120px;   
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
-    white-space: normal;
+    
+
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -22,14 +28,86 @@ input,
 select,
 textarea {
     max-width: 280px;
+    background-color: lightskyblue;
+    color: navy;
+    border-radius: 25px;
+    box-shadow: 27px;
+    text-align: center;
 }
 
-h2{
-    text-align:center;
-    color:gainsboro;
+h2 {
+    text-align: center;
+    font-family: Papyrus;
+    color: deepskyblue;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 60px;
+    padding-bottom: 10px;
 }
 
-h1{
+h1 {
+    text-align: center;
+    font-family: Papyrus;
+    text-shadow: 4px 4px 10px lightskyblue;
+    font-size: 200px;
+}
+.p1 {
+    text-align: center;
+    font-family: Papyrus;
+    color: deepskyblue;
+    
+}
+div3 {
+    border: 5px inset white;
+    margin-top: 150px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+    background-color: burlywood;
+    text-align: center;
+    max-width: 375px;
+    align-content: center;
+    font-size: 24px;
+}
+
+.jumbotron {
+    background-color:burlywood;
     text-align:center;
-    text-decoration-color:dodgerblue;
+    border: 5px inset white;
+    border-radius: 8px;
+    color: navy;
+
+}
+
+.p3 {
+    text-align: center;
+    color: lightslategray;
+    align-self: center;
+    
+}
+
+.navbar-inverse {
+    background-color: lightskyblue;
+    border-color: deepskyblue;
+    font-family: Papyrus;
+    font-size: 60px !important;
+    padding-top: 15px;
+        
+}
+div2 {
+    max-width: 280px;
+    background-color: lightskyblue;
+    color: navy;
+    border-radius: 25px;
+    box-shadow: 27px;
+    font-size: 48px;
+}
+
+footer {
+    color: deepskyblue;
+    font-size: 24px;
+}
+
+.p12 {
+    max-height: 20px;
+    max-width: 25px;
 }
