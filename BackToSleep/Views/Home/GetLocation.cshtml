@@ -1,34 +1,44 @@
+<div class="container">
+    <div class="amazing">
+        @{
+            ViewBag.Title = "Recommendations";
+        }
 
-@{
-    ViewBag.Title = "Recommendations";
-}
+
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <h2>Your Sleep Score is @ViewBag.Score</h2>
+            <p>To unlock the full feature you must register</p>
+            <form action="~/Account/Register">
+                <input type="submit" value="Register" />
+            </form>
+        }
+        else
+        {
+            <h2>Your Sleep Score is @ViewBag.Score</h2>
+            <h3>@ViewBag.Data[1]</h3>
+
+            for (int i = 0; i < ViewBag.Links.Count; i++)
+            {
+            <section class="img-container">
+                
+                <img class="rubberducky" src="@ViewBag.Images[i]" />
+
+                <h3>
+                    <a href="@ViewBag.Links[i].">@ViewBag.Names[i]</a>
+                </h3>
+            </section>
+                
+            }
 
 
-@if (!User.Identity.IsAuthenticated)
-{
-    <h2>Your Sleep Score is @ViewBag.Score</h2>
-    <p>To unlock the full feature you must register</p>
-    <form action="~/Account/Register">
-        <input type="submit" value="Register" />
-    </form>
-}
-else
-{
-    <h2>Your Sleep Score is @ViewBag.Score</h2>
-    <h3>@ViewBag.Data[1]</h3>
+        }
 
-    foreach (var item in ViewBag.Images)
-    {
-        <img style="width: 200px; height:auto;" src="@item" />
-    }
-
-    for (int i = 0; i < ViewBag.Links.Count; i++)
-    {
-        <a href="@ViewBag.Links[i].">@ViewBag.Names[i]</a>
-    }
-}
-
-<div11>
-    <img src="~/Images/guyflipping.gif" style="height: 300px; width:450px;" />
-    <img src="~/Images/girlflipping.gif" style="height: 300px; width:450px;" />
-</div11>
+        <div class="div11">
+            <img src="~/Images/guyflipping.gif" style="height: 300px; width:450px;" />
+        </div>
+        <div class="div12">
+            <img src="~/Images/girlflipping.gif" style="height: 300px; width:450px;" />
+        </div>
+    </div>
+</div>

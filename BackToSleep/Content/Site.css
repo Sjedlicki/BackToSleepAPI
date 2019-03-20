@@ -56,7 +56,7 @@ h1 {
     color: deepskyblue;
     
 }
-div3 {
+.div3 {
     border: 5px inset white;
     margin-top: 150px;
     margin-left: 5px;
@@ -64,7 +64,7 @@ div3 {
     border-radius: 10px;
     background-color: burlywood;
     text-align: center;
-    max-width: 400px;
+    /*max-width: 400px;*/
     align-content: center;
     font-size: 24px;
     display: inline-block;
@@ -76,7 +76,7 @@ div3 {
     border: 5px inset white;
     border-radius: 8px;
     color: navy;
-
+    margin-top: 100px;
 }
 
 .p3 {
@@ -107,9 +107,19 @@ footer {
     font-size: 24px;
 }
 
-div11 {
+.div11 {
     border: 5px inset lightgray;
-
+    border-radius: 25px;
+    width: 500px;
+    height: 375px;
+    background-color: lightskyblue;
+    position: relative;
+    left: 350px;
+    padding-top:30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    margin-top: 50px;
 }
 
 div4 {
@@ -129,4 +139,68 @@ div4 {
     
 }
 
+.table {
+    background-color: burlywood;
+    border: 5px inset lightgray;
+}
 
+#id {
+    position:relative;
+    left: 470px;
+    padding-top: 10px;
+}
+
+#goat {
+    position: relative;
+    background-color: burlywood;
+    border: 5px inset lightgray;
+    margin-top: 100px;
+    width: 450px;
+    height: 150px;
+    left: 375px;
+}
+
+.div12 {
+    border: 5px inset lightgray;
+    border-radius:25px;
+    width: 500px;
+    height: 375px;
+    background-color: lightskyblue;
+    position: relative;
+    left: 350px;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    margin-top: 50px;
+}
+
+.container {
+    color: white;
+    text-align: center;
+}
+.amazing {
+    border: 5px inset lightgray;
+    border-radius: 25px;
+    background-color: burlywood;
+    padding-bottom: 50px;
+}
+
+.img-container {
+    display: inline-block;
+    
+}
+
+.rubberducky {
+    height: 175px;
+    width: 175px;
+    border: 5px inset lightskyblue;
+    
+}
+
+.super {
+    color: white;
+    background-color: burlywood;
+    border: 5px inset lightgray;
+    text-align: center;
+}

@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "Welcome " + User.Identity.Name + "!";
 }
-
+<div class="container">
 <h2>Welcome @User.Identity.Name!</h2>
-
+ 
 <input type="button" value="Enter Sleep" onclick="location.href='@Url.Action("Create", "UserSleepData")'" />
 
-<table class="table">
+<table class="table" style="color:white">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.SleepHours)
@@ -67,3 +67,4 @@ else
         <input type="submit" value="Get Recommendations" />
     </form>
 }
+</div>
