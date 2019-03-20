@@ -17,6 +17,7 @@ namespace BackToSleep.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private SleeperDbContext db = new SleeperDbContext();
 
         public AccountController()
         {
@@ -155,21 +156,42 @@ namespace BackToSleep.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Something", "Account");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult Something()
+        {
+            if (Session["SleepHours"] != null)
+            {
+                SleepData sd = new SleepData();
+                sd.SleepHours = Session["SleepHours"].ToString();
+                sd.SleepQuality = (int)Session["SleepQuality"];
+                sd.Day = Session["Day"].ToString();
+                sd.Date = (DateTime)Session["Date"];
+                sd.UserID = User.Identity.GetUserId();
+
+                db.SleepDatas.Add(sd);
+                db.SaveChanges();
+
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         //

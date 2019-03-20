@@ -44,32 +44,23 @@ namespace BackToSleep.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult DailySleepPatterns()
         {
             return View();
         }
 
-        [Authorize]
-        public ActionResult DailySleep(int ZipCode, int SleepHours, int SleepQuality)
+        public ActionResult DailySleep(int SleepHours, int SleepQuality)
         {
+            Session["SleepHours"] = SleepHours;
+            Session["SleepQuality"] = SleepQuality;
+            Session["Day"] = DateTime.Now.Day;
+            Session["Date"] = DateTime.Now.Date;
+
+
             int baseScore = BasePoints(SleepHours);
             double adjusted = AdjustedScore(baseScore, SleepQuality);
 
             ViewBag.Data = SleepRecommendation(adjusted);
-
-            string YelpKey = ViewBag.Data[0];
-
-            string lat = GPlacesDAL.GetLatitude(ZipCode);
-            string lng = GPlacesDAL.GetLongitude(ZipCode);
-
-            ViewBag.Business = GPlacesDAL.GetBusiness(lat, lng, YelpKey);
-
-            ViewBag.Names = GPlacesDAL.GetName(ViewBag.Business);
-
-            ViewBag.Images = GPlacesDAL.GetImage(ViewBag.Business);
-
-            ViewBag.Links = GPlacesDAL.GetLink(ViewBag.Business);
 
             ViewBag.Score = adjusted;
 
