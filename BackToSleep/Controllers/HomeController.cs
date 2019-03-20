@@ -53,7 +53,7 @@ namespace BackToSleep.Controllers
         {
             Session["SleepHours"] = SleepHours;
             Session["SleepQuality"] = SleepQuality;
-            Session["Day"] = DateTime.Now.Day;
+            Session["Day"] = DateTime.Now.DayOfWeek;
             Session["Date"] = DateTime.Now.Date;
 
 
@@ -121,19 +121,19 @@ namespace BackToSleep.Controllers
 
         public int BasePoints(int basepoints)
         {
-            if (basepoints >= 8)
+            if (basepoints >= 7)
             {
                 return 100;
             }
-            else if (basepoints < 8 && basepoints >= 6)
+            else if (basepoints < 7 && basepoints >= 5)
             {
                 return  80;
             }
-            else if (basepoints < 6 && basepoints >= 4)
+            else if (basepoints < 5 && basepoints >= 3)
             {
                 return 60;
             }
-            else if (basepoints < 4 && basepoints >= 2)
+            else if (basepoints < 3 && basepoints >= 2)
             {
                 return 40;
             }
@@ -147,9 +147,14 @@ namespace BackToSleep.Controllers
 
         public double AdjustedScore(int basepoints, double quality)
         {
-            double q = quality * 0.1;
+            double q = quality * 0.12;
 
             double adjustedScore = basepoints * q;
+
+            if(adjustedScore > 100)
+            {
+                return 100;
+            }
 
             return adjustedScore;
         }
