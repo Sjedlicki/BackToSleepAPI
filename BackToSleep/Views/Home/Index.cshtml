@@ -5,16 +5,24 @@
 <div class="jumbotron">
 
     <h1>Back2Sleep</h1>
-    <p1 class="lead">Welcome to the Back2Sleep application where we look out for your sleep health by taking in a little user input and offering helpful suggestions to keep you healthy and performing at your best.</p1>
+    <p class="lead">Welcome to the Back2Sleep application where we look out for your sleep health by taking in a little user input and offering helpful suggestions to keep you healthy and performing at your best.</p>
 
-    <div2>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h3>Welcome @User.Identity.Name</h3>
+    }
+    else
+    {
         <form action="~/Account/Register">
             <input type="submit" value="Register" />
         </form>
         <form action="~/Account/Login">
             <input type="submit" value="Login" />
         </form>
-    </div2>
+    }
+
+    <p>Get your free sleep score today!</p>
+    <input type="button" value="Sleep Estimator" onclick="location.href='@Url.Action("DailySleepPatterns", "Home")'" />
 </div>
 
 <div class="row">
