@@ -293,6 +293,8 @@
     <Content Include="Images\Back2SleepLogo.jpg" />
     <Content Include="Images\clouds.jpg" />
     <Content Include="Images\clouds2.jpg" />
+    <Content Include="Images\girlflipping.gif" />
+    <Content Include="Images\guyflipping.gif" />
     <Content Include="Models\SleepDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SleepDB.edmx</DependentUpon>
