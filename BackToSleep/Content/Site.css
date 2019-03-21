@@ -219,3 +219,12 @@ div4 {
     border: 5px inset lightgray;
     text-align: center;
 }
+
+#addsleep {
+    background-color: burlywood;
+    border: 5px inset lightgray;
+    border-radius: 8px;
+    color: white;
+    margin-top: 100px;
+    display: block;
+}

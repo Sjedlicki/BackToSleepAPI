@@ -1,91 +1,91 @@
-﻿@model BackToSleep.Models.SleepData
+﻿
+<div class="container">
+    @model BackToSleep.Models.SleepData
 
-@{
-    ViewBag.Title = "Create";
-}
+    @{
+        ViewBag.Title = "Create";
+    }
 
-<h2>Add New Sleep Data</h2>
-
-@using (Html.BeginForm()) 
-{
+    <h2>Add New Sleep Data</h2>
+@using (Html.BeginForm()) { }
     @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+            <div id="addsleep">
+                <h4>Sleep Data</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SleepHours, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="form-control" id="SleepHours" name="SleepHours">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.SleepHours, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SleepQuality, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="form-control" id="SleepHours" name="SleepQuality">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.SleepQuality, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="form-control" id="Day" name="Day">
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                            <option>Sunday</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Day, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "datefield", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default"  />
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>         
+        </div>
     
-<div class="form-horizontal">
-    <h4>Sleep Data</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.SleepHours, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select class="form-control" id="SleepHours" name="SleepHours">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.SleepHours, "", new { @class = "text-danger" })
-        </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.SleepQuality, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select class="form-control" id="SleepHours" name="SleepQuality">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.SleepQuality, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select class="form-control" id="Day" name="Day">
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
-                <option>Saturday</option>
-                <option>Sunday</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.Day, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "datefield", @type = "date" } })
-            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
